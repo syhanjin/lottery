@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>抽号工具</title>
+    <link rel='stylesheet' href='./css/main.css'>
+    <script src='./js/jquery/jquery-3.4.0.min.js'></script>
+    <script id="lists" src='./lists/list.js'></script>
+    <script src='./js/main.js'></script>
+</head>
+
+<body>
+    <div class="main">
+        <div class="tabs">
+            <input type="button" value="姓名模式" class="tab select" id="name">
+            <input type="button" value="学号模式" class="tab" id="number">
+        </div>
+        <ul class="contents">
+            <li class="tab-box name">
+                <div>
+                    <div class="settings">
+                        <select></select>
+                        <svg id="reload" t="1636859818424" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                            xmlns="http://www.w3.org/2000/svg" p-id="2543" width="32" height="32">
+                            <path
+                                d="M640 921.6V981.333333l-85.333333-85.333333-42.666667-42.666667h21.333333c174.933333 0 320-145.066667 320-320 0-145.066667-93.866667-264.533333-226.133333-307.2L571.733333 170.666667c183.466667 21.333333 324.266667 174.933333 324.266667 358.4 0 174.933333-123.733333 320-290.133333 354.133333l34.133333 38.4zM426.666667 145.066667V85.333333l85.333333 85.333334 42.666667 42.666666h-21.333334C358.4 213.333333 213.333333 354.133333 213.333333 533.333333c0 140.8 93.866667 264.533333 221.866667 302.933334l55.466667 55.466666c-179.2-21.333333-320-170.666667-320-358.4C170.666667 358.4 294.4 213.333333 460.8 179.2l-34.133333-34.133333z"
+                                fill="#444444" p-id="2544"></path>
+                        </svg>
+                    </div>
+                    <div class="roll">
+                        <span>未开始</span>
+                    </div>
+                    <div class="control">
+                        <input type="button" value="开始">
+                    </div>
+                </div>
+            </li>
+            <li class="tab-box number">
+                <div>
+                    <div class="settings">
+                        <input type="number" value="1" min="1" class="start" />
+                        <span>~</span>
+                        <input type="number" value="52" max="99" class="end" />
+                    </div>
+                    <div class="roll">
+                        <span>0</span>
+                        <span>0</span>
+                    </div>
+                    <div class="control">
+                        <input type="button" value="开始">
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <p class="kidding">因个人审美问题，有点丑；因懒的问题，动画勉强能看</p>
+        <p class="cprt">©2020-2021 sakuyark.com 版权所有</p>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,270 @@
+@font-face {
+    font-family: '霞鹜文楷';
+    src: url(../fonts/LXGWWenKai-Regular.ttf);
+}
+
+html {
+    font-size: 62.5%;
+}
+
+
+html,
+body {
+    height: 100%;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: '霞鹜文楷';
+    box-sizing: border-box;
+}
+
+.main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.tabs {
+    height: 5vh;
+    line-height: 5vh;
+    display: flex;
+    align-items: center;
+}
+
+
+
+.tabs *:last-child {
+    margin-right: 0;
+}
+
+.contents {
+    height: 100%;
+    flex: 1;
+    font-size: 2.2rem;
+    white-space: nowrap;
+    -webkit-perspective: 1000;
+    -webkit-backface-visibility: hidden;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    left: 0;
+    list-style-type: none;
+    overflow: hidden;
+    -webkit-perspective: 1000;
+    -webkit-backface-visibility: hidden;
+    transform: translate3d(0, 0, 0);
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    width: 200vw;
+}
+
+.contents>* {
+    display: block;
+    height: 100%;
+}
+
+.contents>*>div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.tab-box {
+    padding: 2rem;
+    display: inline-block;
+    width: 100vw;
+    height: 100%;
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-user-drag: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    list-style-type: none;
+    float: left;
+    color: #000;
+    text-align: center;
+}
+}
+
+.tab-box.select {
+    /* display: block; */
+}
+
+.tab:hover:not(.select) {
+    -webkit-filter: brightness(1.3);
+    -moz-filter: brightness(1.3);
+    -o-filter: brightness(1.3);
+    -ms-filter: brightness(1.3);
+}
+
+.tab {
+    flex: 1;
+    border: 0;
+    outline: none;
+    height: 100%;
+    font-size: 2.2rem;
+    margin-right: 0.2em;
+    background-color: skyblue;
+}
+
+.tab.select {
+    background-color: rgb(190, 190, 190);
+}
+
+.number {}
+
+.settings {
+    margin: 0.5rem 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5vh;
+    line-height: 5vh;
+    font-size: 4vh;
+}
+
+.number .settings input {
+    width: 10vh;
+    font-size: 4vh;
+    margin: 0 2vh;
+    text-align: center;
+    height: 100%;
+    outline: 0;
+    border: 0;
+    background-color: skyblue;
+}
+
+.number .settings input[disabled] {
+    background-color: rgb(187, 187, 187);
+}
+
+.roll {
+    display: flex;
+    flex: 1;
+    padding: 1rem 5rem;
+    align-items: start;
+    justify-content: center;
+
+    -moz-user-select: none;
+    /*火狐*/
+    -webkit-user-select: none;
+    /*webkit浏览器*/
+    -ms-user-select: none;
+    /*IE10*/
+    -khtml-user-select: none;
+    /*早期浏览器*/
+    user-select: none;
+}
+
+@keyframes beat {
+    from {
+        transform: translateY(-.5rem)
+    }
+
+    to {
+        transform: translateY(.5rem);
+    }
+}
+
+.roll span {
+    margin: 0 5rem;
+    text-align: center;
+    line-height: 50vh;
+}
+
+.number .roll span {
+    font-size: 50vh;
+}
+
+.name .roll span {
+    font-size: 30vh;
+}
+
+.roll span.select {
+    animation: beat 0.1s 0s linear infinite;
+}
+
+.control {
+    flex: 0.5;
+    width: 100%;
+    text-align: center;
+}
+
+.control input {
+    outline: 0;
+    border: 0;
+    width: 40%;
+    height: 50%;
+    font-size: 6rem;
+    letter-spacing: .5em;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.kidding {
+    display: block;
+    position: absolute;
+    bottom: 10vh;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    font-size: 2vw;
+}
+
+.cprt {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    left: 0;
+    right: 0;
+    font-size: 3vh;
+}
+
+.name .settings select {
+    width: 25vw;
+    height: 4vw;
+    font-size: 2vw;
+    text-align: center;
+    text-align-last: center;
+    border: 0;
+    outline: 0;
+    background: skyblue;
+}
+
+@keyframes turn {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    25% {
+        -webkit-transform: rotate(90deg);
+    }
+
+    50% {
+        -webkit-transform: rotate(180deg);
+    }
+
+    75% {
+        -webkit-transform: rotate(270deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+#reload.select {
+    animation: turn 1s linear infinite;
+    transform-origin: 52% 52%;
+}

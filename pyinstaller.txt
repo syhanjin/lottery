@@ -1,0 +1,2 @@
+PyInstaller -F -w -i icons/console.ico console.py
+PyInstaller -F -w -i icons/lottery-win.ico main.py

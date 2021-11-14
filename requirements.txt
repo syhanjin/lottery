@@ -1,0 +1,9 @@
+pandas
+datetime
+sip
+pyqt5
+pyqt5-tools
+PyQtWebEngine
+openpyxl
+pywin32
+xlrd
