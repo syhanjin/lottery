@@ -36,26 +36,24 @@ class MainWindow(QMainWindow):
         self.btn['clear'] = self.button('清除', self.clear, (150, 150, 100, 40))
         self.clear_tip = self.label('清除所有列表', (270, 150, 200, 40))
         self.btn['start'] = self.button('启动', self.start, (150, 220, 100, 40))
-        self.start_tip = self.label('启动抽号器', (270, 220, 200, 40))
+        self.start_tip = self.label('启动抽号器', (270, 220, 500, 40))
+        self.btn['web_start'] = self.button(
+            '网页启动', self.web_start, (150, 290, 100, 40)
+        )
+        self.web_start_tip = self.label(
+            '从浏览器启动', (270, 290, 500, 40)
+        )
         self.cprt = self.label(
             '<html><head/><body><p align="center">©2020-2021 sakuyark.com 版权所有</p></body></html>', (0, 550, 800, 40))
         self.cprt.setMouseTracking(True)
         self.explain = self.label(
             QCoreApplication.translate(
                 "mainWindow",
-u"""
-<html><head/><body>
-    <p>本抽号器由 hanjin@Sakuyark 制作</p>
-    <p>
-        Github: 
-        <a href="https://github.com/syhanjin/lottery">
-            <span style="text-decoration: underline; color:#0000ff;">
-                https://github.com/syhanjin/lottery
-            </span>
-        </a>
-    </p>
-    <p><span style="font-weight:600;">因为比较懒，数据方面比较简洁</span></p>
-</body></html>""", None), (150, 300, 500, 200))
+                u"""<html><head/><body><p>本抽号器由 hanjin@Sakuyark 制作</p><p>Github: <a href="https://github.com/syhanjin/lottery"><span style="text-decoration: underline; color:#0000ff;">https://github.com/syhanjin/lottery</span></a></p><p><span style="font-weight:600;">因为比较懒，数据方面比较简洁</span></p></body></html>""",
+                None
+            ),
+            (150, 350, 500, 200)
+        )
 
     def label(
         self,
@@ -117,6 +115,17 @@ u"""
         except Exception as e:
             print(e)
             self.clear_tip.setText('清除失败！')
+
+    def web_start(self):
+        self.web_start_tip.setText('启动中...')
+        try:
+            win32api.ShellExecute(
+                0, 'open', f"file:///{os.path.abspath(os.path.join('.', 'html', 'main.html'))}", '', '', 1
+            )
+            self.web_start_tip.setText('启动成功！')
+        except Exception as e:
+            print(e)
+            self.web_start_tip.setText('启动失败！')
 
 
 if __name__ == '__main__':
