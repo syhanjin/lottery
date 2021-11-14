@@ -3,11 +3,11 @@
 import sys
 import os
 import utils
-import win32api
-import subprocess
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
+from win32api import ShellExecute
+from subprocess import Popen
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QFileDialog, QLabel
+from PyQt5.QtCore import QCoreApplication, QRect
+from PyQt5.QtGui import QIcon, QFont
 
 
 # 创建主窗口
@@ -98,9 +98,9 @@ class MainWindow(QMainWindow):
         self.start_tip.setText('启动中...')
         try:
             if (os.path.exists('main.exe')):
-                win32api.ShellExecute(0, 'open', 'main.exe', '', '', 1)
+                ShellExecute(0, 'open', 'main.exe', '', '', 1)
             else:
-                subprocess.Popen(
+                Popen(
                     'conda activate lottery&&python main.py', shell=True)
             self.start_tip.setText('启动成功！请等待窗口弹出...')
         except Exception as e:
@@ -119,7 +119,7 @@ class MainWindow(QMainWindow):
     def web_start(self):
         self.web_start_tip.setText('启动中...')
         try:
-            win32api.ShellExecute(
+            ShellExecute(
                 0, 'open', f"file:///{os.path.abspath(os.path.join('.', 'html', 'main.html'))}", '', '', 1
             )
             self.web_start_tip.setText('启动成功！')

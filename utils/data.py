@@ -1,4 +1,4 @@
-import pandas as pd
+from pandas import read_excel
 import os
 import datetime
 
@@ -7,7 +7,7 @@ listjs = os.path.join(listroot, 'list.js')
 
 
 def load(fp: str):
-    df = pd.read_excel(fp)
+    df = read_excel(fp)
     df['学号'] = df['学号'].str[-2:]
     if not os.path.exists(listroot):
         os.makedirs(listroot)
