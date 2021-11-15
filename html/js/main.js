@@ -21,10 +21,9 @@ function change_tab(id, animation = true) {
             'top': '-' + transformx + 'px'
         });
     }
-    // window.location.hash = id
 }
 function randint(st, ed) {
-    return st + parseInt(Math.random() * (ed - st))
+    return st + parseInt(Math.random() * (ed - st + 1))
 }
 // number
 number_state = 0, st = 0, ed = 0, s1 = null, s2 = null;
@@ -114,6 +113,7 @@ $(document).ready(function () {
     $('.tab').on('click', function (e) {
         change_tab(e.target.id)
         clearInterval(interval);
+        $('.roll span').removeClass('select');
     })
     $('.number .control input').on('click', function () {
         number_toggle()

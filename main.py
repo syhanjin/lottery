@@ -7,6 +7,8 @@ from PyQt5.QtGui import QIcon
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 
 # 创建主窗口
+
+
 class MainWindow(QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -14,11 +16,15 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('抽号工具')
         self.setWindowIcon(QIcon('icons/lottery-win.png'))
         self.webview = QWebEngineView()
-        self.webview.load(QUrl(QFileInfo('./html/main.html').absoluteFilePath()))
+        self.webview.load(
+            QUrl(QFileInfo('./html/main.html').absoluteFilePath()))
         self.setCentralWidget(self.webview)
-        self.webview.urlChanged.connect(self.new_url)
-    def new_url(self, p):
-        self.webview.load(QUrl(p))
+        self.webview.loadFinished.connect(self.call_js)
+    
+    def call_js(self):
+        self.webview.page().runJavaScript(
+            'change_tab("number", false)'
+        )
 
 
 # 程序入口
