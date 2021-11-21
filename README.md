@@ -5,11 +5,15 @@
 
 ```shell
 conda create -n lottery python=3.8 -y
+conda activate lottery
 pip install -r requirements.txt
 ```
 
 
 ## 更新日志
+
+
+### 0.2.2
 
 ### 0.2.1
 

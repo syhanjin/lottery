@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import sys
 import os
 import utils
@@ -19,17 +18,18 @@ class MainWindow(QMainWindow):
         self.setupUi()
 
     def setupUi(self):
-        self.setObjectName("mainWindow")
-        self.setWindowTitle('抽号工具 控制台')
-        self.setWindowIcon(QIcon('icons/console.png'))
-        self.resize(800, 600)
+        self.setObjectName("mainWindow")  # 设置窗口名
+        self.setWindowTitle('抽号工具 控制台')  # 设置标题
+        self.setWindowIcon(QIcon('icons/console.png'))  # 设置图标
+        self.resize(800, 600)  # 重置大小
+        # 引入字体
         self.font = QFont()
         self.font.setFamily("霞鹜文楷")
         self.font.setPointSize(14)
         self.font.setKerning(True)
 
+        # 构建窗口内控件
         self.title = self.label('抽号工具 控制台', (300, 10, 200, 40))
-        # self.tip = self.label('', (0, 10, 280, 40))
 
         self.btn['load'] = self.button('导入', self.load, (150, 80, 100, 40))
         self.load_tip = self.label('请导入标准花名册', (270, 80, 200, 40))
@@ -37,12 +37,6 @@ class MainWindow(QMainWindow):
         self.clear_tip = self.label('清除所有列表', (270, 150, 200, 40))
         self.btn['start'] = self.button('启动', self.start, (150, 220, 100, 40))
         self.start_tip = self.label('启动抽号器', (270, 220, 500, 40))
-        self.btn['web_start'] = self.button(
-            '网页启动', self.web_start, (150, 290, 100, 40)
-        )
-        self.web_start_tip = self.label(
-            '从浏览器启动', (270, 290, 500, 40)
-        )
         self.cprt = self.label(
             '<html><head/><body><p align="center">©2020-2021 sakuyark.com 版权所有</p></body></html>', (0, 550, 800, 40))
         self.cprt.setMouseTracking(True)
@@ -60,6 +54,11 @@ class MainWindow(QMainWindow):
         text: 'str',
         geometry: 'tuple[int, int, int, int]',
     ):
+        """
+        构建label控件
+        :param text: 标签文本
+        :param geometry: x, y, width, height
+        """
         label = QLabel(self)
         if hasattr(self, 'font'):
             label.setFont(self.font)
@@ -73,6 +72,12 @@ class MainWindow(QMainWindow):
         action: 'function',
         geometry: 'tuple[int, int, int, int]'
     ) -> QPushButton:
+        """
+        构建button控件
+        :param text: 按钮文本
+        :param action: 点击事件
+        :param geometry: x, y, width, height
+        """
         btn = QPushButton(text, self)
         if hasattr(self, 'font'):
             btn.setFont(self.font)
@@ -81,6 +86,9 @@ class MainWindow(QMainWindow):
         return btn
 
     def load(self):
+        """
+        导入名单，名单内至少包含两列 姓名 学号
+        """
         self.load_tip.setText('准备导入...')
         try:
             fileName, fileType = QFileDialog.getOpenFileName(
@@ -95,6 +103,9 @@ class MainWindow(QMainWindow):
             self.load_tip.setText('导入失败！')
 
     def start(self):
+        """
+        启动抽号器主程序 main.exe or main.py
+        """
         self.start_tip.setText('启动中...')
         try:
             if (os.path.exists('main.exe')):
@@ -108,6 +119,9 @@ class MainWindow(QMainWindow):
             self.start_tip.setText('启动失败！')
 
     def clear(self):
+        """
+        清除已经导入的名单
+        """
         self.clear_tip.setText('正在清除所有已导入的列表...')
         try:
             os.remove(utils.data.listjs)
@@ -115,17 +129,6 @@ class MainWindow(QMainWindow):
         except Exception as e:
             print(e)
             self.clear_tip.setText('清除失败！')
-
-    def web_start(self):
-        self.web_start_tip.setText('启动中...')
-        try:
-            ShellExecute(
-                0, 'open', f"file:///{os.path.abspath(os.path.join('.', 'html', 'main.html'))}", '', '', 1
-            )
-            self.web_start_tip.setText('启动成功！')
-        except Exception as e:
-            print(e)
-            self.web_start_tip.setText('启动失败！')
 
 
 if __name__ == '__main__':
