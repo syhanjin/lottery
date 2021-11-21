@@ -9,7 +9,7 @@ conda activate lottery
 pip install -r requirements.txt
 ```
 
-## (打包)[pyinstaller.md]
+## [打包](pyinstaller.md)
 
 ## 更新日志
 
