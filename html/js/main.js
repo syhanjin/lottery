@@ -1,3 +1,14 @@
+function decrypt(data, key) {
+    var key1 = CryptoJS.enc.Utf8.parse(key);
+    var encryptedHexStr = CryptoJS.enc.Hex.parse(data);
+    var encryptedBase64Str = CryptoJS.enc.Base64.stringify(encryptedHexStr);
+    var decrypted = CryptoJS.AES.decrypt(encryptedBase64Str, key1, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.ZeroPadding
+    });
+    return decrypted.toString(CryptoJS.enc.Utf8);
+}
+
 interval = 0;
 
 function change_tab(id, animation = true) {
@@ -22,11 +33,16 @@ function change_tab(id, animation = true) {
         });
     }
 }
+
 function randint(st, ed) {
     return st + parseInt(Math.random() * (ed - st + 1))
 }
+
+
 // number
+
 number_state = 0, st = 0, ed = 0, s1 = null, s2 = null;
+
 function number_start() {
     number_state = 1;
     $('.number .settings input[type=number]').attr('disabled', 'disabled')
@@ -36,10 +52,12 @@ function number_start() {
     ed = parseInt($('input[type=number].end').val());
     ten = [parseInt(st / 10), parseInt(ed / 10)]
     interval = setInterval(function () {
-        s1.text(randint(ten[0], ten[1]))
-        s2.text(randint(0, 9))
+        number = randint(st, ed);
+        s1.text(parseInt(number / 10));
+        s2.text(number % 10);
     }, 1000 / 12)
 }
+
 function number_stop() {
     number_state = 0;
     $('.number .settings input[type=number]').removeAttr('disabled')
@@ -50,6 +68,7 @@ function number_stop() {
     s2.text(number % 10);
     $('.roll span').removeClass('select')
 }
+
 function number_toggle() {
     if (number_state == 0) {
         number_start();
@@ -57,9 +76,36 @@ function number_toggle() {
         number_stop();
     }
 }
+
 // --
+
+
 // name
+
+function list_decrypt(key) {
+    if (window.name_lists == undefined || window.name_lists.length == 0) return;
+
+    $('.name .tip').text('正在解密名单...');
+    try {
+        for (i in window.name_lists) {
+            decr = decrypt(window.name_lists[i], key);
+            window.name_lists[i] = JSON.parse(decr).data;
+        }
+    } catch {
+        $('.name .tip').text('名单解密失败！请重启程序再试！');
+    }
+    $('.name .tip').text('名单解密成功！');
+    setTimeout(function () {
+        $('.name .tip').animate({
+            'opacity': 0
+        }, 1500, function () {
+            $(this).hide();
+        });
+    })
+}
+
 name_state = 0, xlsx = '', s = null;
+
 function name_start() {
     name_state = 1;
     $('.name .settings select').attr('disabled', 'disabled')
@@ -72,6 +118,7 @@ function name_start() {
         )
     }, 1000 / 12)
 }
+
 function name_stop() {
     name_state = 0;
     $('.name .settings select').removeAttr('disabled')
@@ -82,6 +129,7 @@ function name_stop() {
     )
     $('.roll span').removeClass('select')
 }
+
 function name_toggle() {
     if (name_state == 0) {
         name_start();
@@ -89,8 +137,14 @@ function name_toggle() {
         name_stop();
     }
 }
+
 function load_lists() {
-    $('.name .settings select').empty()
+    $('.name .settings select').empty();
+    if (window.name_lists == undefined || window.name_lists.length == 0) {
+        $('.name .tip').text('未找到名单');
+        $('.name .control input').attr('disabled', 'disabled');
+        $('.name .settings select').attr('disabled', 'disabled');
+    }
     for (i in window.name_lists) {
         option = document.createElement('option');
         option.value = i;
@@ -132,3 +186,4 @@ $(document).ready(function () {
         $(this).removeClass('select');
     });
 })
+

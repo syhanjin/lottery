@@ -1,6 +1,0 @@
-
-PyInstaller -Dw -i icons/console.ico console.py
-PyInstaller -Dw -i icons/lottery-win.ico main.py
-
-请在运行完后将 dist/main 与 dist/console 合并，并保留 dist/main 中的文件
-再将 html fonts icons 文件夹复制到合并的文件夹内

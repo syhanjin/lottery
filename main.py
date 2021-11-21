@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import sys
+from utils import prpc
 from PyQt5.QtWidgets import QMainWindow, QApplication
 from PyQt5.QtCore import QUrl, QFileInfo
 from PyQt5.QtGui import QIcon
@@ -22,6 +23,9 @@ class MainWindow(QMainWindow):
         self.webview.loadFinished.connect(self.call_js)
     
     def call_js(self):
+        self.webview.page().runJavaScript(
+            f'list_decrypt("{prpc.key.decode("utf-8")}")'
+        )
         self.webview.page().runJavaScript(
             'change_tab("number", false)'
         )
