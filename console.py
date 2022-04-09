@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
-import sys
 import os
-import utils
-from win32api import ShellExecute
+import sys
 from subprocess import Popen
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QFileDialog, QLabel
+
 from PyQt5.QtCore import QCoreApplication, QRect
-from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtGui import QFont, QIcon
+from PyQt5.QtWidgets import QApplication, QFileDialog, QLabel, QMainWindow, QPushButton
+from win32api import ShellExecute
+
+import utils
 
 
 # 创建主窗口
@@ -38,21 +40,25 @@ class MainWindow(QMainWindow):
         self.btn['start'] = self.button('启动', self.start, (150, 220, 100, 40))
         self.start_tip = self.label('启动抽号器', (270, 220, 500, 40))
         self.cprt = self.label(
-            '<html><head/><body><p align="center">©2020-2021 sakuyark.com 版权所有</p></body></html>', (0, 550, 800, 40))
+            '<html><head/><body><p align="center">©2020-2021 sakuyark.com 版权所有</p></body></html>', (0, 550, 800, 40)
+        )
         self.cprt.setMouseTracking(True)
         self.explain = self.label(
             QCoreApplication.translate(
                 "mainWindow",
-                u"""<html><head/><body><p>本抽号器由 hanjin@Sakuyark 制作</p><p>Github: <a href="https://github.com/syhanjin/lottery"><span style="text-decoration: underline; color:#0000ff;">https://github.com/syhanjin/lottery</span></a></p><p><span style="font-weight:600;">因为比较懒，数据方面比较简洁</span></p></body></html>""",
+                u"""<html><head/><body><p>本抽号器由 hanjin@Sakuyark 制作</p><p>Github: <a 
+                href="https://github.com/syhanjin/lottery"><span style="text-decoration: underline; 
+                color:#0000ff;">https://github.com/syhanjin/lottery</span></a></p><p><span 
+                style="font-weight:600;">因为比较懒，数据方面比较简洁</span></p></body></html>""",
                 None
             ),
             (150, 350, 500, 200)
         )
 
     def label(
-        self,
-        text: 'str',
-        geometry: 'tuple[int, int, int, int]',
+            self,
+            text: 'str',
+            geometry: 'tuple[int, int, int, int]',
     ):
         """
         构建label控件
@@ -67,10 +73,10 @@ class MainWindow(QMainWindow):
         return label
 
     def button(
-        self,
-        text: 'str',
-        action: 'function',
-        geometry: 'tuple[int, int, int, int]'
+            self,
+            text: 'str',
+            action,
+            geometry: 'tuple[int, int, int, int]'
     ) -> QPushButton:
         """
         构建button控件
@@ -108,11 +114,12 @@ class MainWindow(QMainWindow):
         """
         self.start_tip.setText('启动中...')
         try:
-            if (os.path.exists('main.exe')):
+            if os.path.exists('main.exe'):
                 ShellExecute(0, 'open', 'main.exe', '', '', 1)
             else:
                 Popen(
-                    'conda activate lottery&&python main.py', shell=True)
+                    'conda activate lottery&&python main.py', shell=True
+                )
             self.start_tip.setText('启动成功！请等待窗口弹出...')
         except Exception as e:
             print(e)
