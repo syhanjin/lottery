@@ -18,7 +18,7 @@ class MainWindow(QMainWindow):
         super().__init__(*args, **kwargs)
         self.icon = QIcon('icons/lottery-win.png')
         self.popup = Popup()
-        self.popup.MainShow.connect(self.show)
+        self.popup.MainShow.connect(self._show)
         self.popup.show()
         quit_action = QAction('退出', self, triggered=self.quit)
         quit_action.setIcon(self.icon)
@@ -69,6 +69,10 @@ class MainWindow(QMainWindow):
         self.popup.close()
         self.close()
         sys.exit(0)
+
+    def _show(self):
+        self.show()
+        self.focusWidget()
 
 
 class Popup(QWidget):
