@@ -1,19 +1,24 @@
 # -*- coding: utf-8 -*-
-
+import ctypes
 import sys
 
+import win32gui
 from PyQt5.QtCore import QFileInfo, QUrl, Qt, pyqtSignal, pyqtSlot
 from PyQt5.QtGui import QIcon, QImage, QPixmap
 from PyQt5.QtWebEngineWidgets import QWebEngineView
 from PyQt5.QtWidgets import (
     QAction, QApplication, QLabel, QMainWindow, QMenu, QSystemTrayIcon, QWidget,
 )
+from win32api import CloseHandle, GetLastError
+from win32con import SW_SHOWNA
+from win32event import CreateMutex
+from winerror import ERROR_ALREADY_EXISTS
 
 from utils import prpc
 
 
 # 创建主窗口
-class MainWindow(QMainWindow):
+class LotteryMain(QMainWindow):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.icon = QIcon('icons/lottery-win.png')
@@ -144,11 +149,35 @@ class Popup(QWidget):
         self.MainShow.emit()
 
 
+#
+class Singleinstance:
+
+    def __init__(self):
+        self.mutexname = "lottery_main_{D0E858DF-985E-4907-B7FB-8D732C3FC3B9}"
+        self.mutex = CreateMutex(None, False, self.mutexname)
+        self.lasterror = GetLastError()
+
+    def aleradyrunning(self):
+        return self.lasterror == ERROR_ALREADY_EXISTS
+
+    def __del__(self):
+        if self.mutex:
+            CloseHandle(self.mutex)
+
+
 # 程序入口
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    mutex = Singleinstance()
+    if mutex.aleradyrunning():
+        # 暂时没有办法让它显示
+        # hwnd = win32gui.FindWindow(None, "抽号工具")
+        # print(hwnd)
+        # if hwnd:
+        #     win32gui.ShowWindow(hwnd, SW_SHOWNA)
+        sys.exit()
     # 创建主窗口
-    browser = MainWindow()
+    browser = LotteryMain()
     browser.show()
     # popup = Popup()
     # popup.show()
