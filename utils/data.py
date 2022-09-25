@@ -10,7 +10,6 @@ def load(fp: str):
     # 读取名单
     df = read_excel(fp)
     # 提取学号后两位数字
-    df['学号'] = df['学号'].str[-2:]
     # 构建名单文件夹
     if not os.path.exists(listroot):
         os.makedirs(listroot)
